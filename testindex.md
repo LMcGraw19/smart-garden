@@ -4,7 +4,7 @@
 <main>
 <body>
 <h1>This is a Lemon!</h1>
-<a href="lemun.jpg"></a>
+<img src="lemun.jpg"></a>
 </body>
 </main>
 
