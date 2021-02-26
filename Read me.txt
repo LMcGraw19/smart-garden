@@ -1,0 +1,51 @@
+The github repository currently consists of 4 Python scripts, a templates folder that holds two HTML files and a text file containing modules that to install.
+
+Three of the Python scripts are for creating and updating a database on the MYSQL server.
+
+The final script is the flask app that will access the database and transfer the results of a MYSQL query into a HTML file.
+
+The database that is being created here will consist of 5 tables of between 2 to 3 columns each excluding the primary key. Each table has a time column and a column or two for the readings.
+The tables included are:
+- Air_Temperature (Temperture and Humidity)
+- Soil_Temperture (Temperture and Moisture levels)
+- Light_Indensity
+- Wind_Speed_and_direction (Speed and Direction)
+- Rainfall
+
+The datatype for all the fields at the moment are VARCHAR which will most likely change in a later revision to accommodate what the sensors will output.
+
+The HTML is very basic with a welcome page that has a link to the smartgarden page that only displays the results of the last 5 tests in the Air_Temperature table and link back to the welcome page.
+
+Step by step setup:
+
+Step 1: setup MYSQL server service on the server.
+
+Step 2: Use git pull to grab scripts and contents of templates folder onto the server.
+
+Step 3: Use the command "pip install -r 'Python Req.txt'" otherwise install the modules one by one. mysql-connector-python is the big change from the previous draft of this file but it was already installed on my version of Python.
+
+Step 2: Edit the python scripts with the password for the local MYSQL server.
+
+Step 3: Run Database2.py to create database and tables.
+
+Step 4: Connect WebApp.py to apache or run by itself to run locally.
+
+Step 5: Run a browser to look at the website.
+
+Step 6: Run Databaseupdate.py to update the database and refresh the browser to see the change in the results.
+
+
+Future revisions:
+Find neater way to calculate the last 5 results and place these calculations in a module in a different script to be called to avoid clutter on the main app.
+
+Converting query results to be easier to read on the html page / line graph.
+
+Implementation of Java so that data is displayed on the press of the button. Don't want 5 fat ass line graphs covering the page or we could have all five tables displayed on the same graph?
+
+Implementation of a feature to allow the user to create their own timelapse to be displayed on the graph.
+
+Allow a user to create their own database and tables using the site. Security check in order to create this new database.
+
+
+Other ideas:
+Allow the sensors to connect to the app and pass through data and let python update the database. Would need rules to make sure only the sersor devices can connect to these pages. Most likely better ways to do this but putting this here just encase.
