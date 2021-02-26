@@ -20,19 +20,19 @@ Step by step setup:
 
 Step 1: setup MYSQL server service on the server.
 
-Step 2: Use git pull to grab scripts and contents of templates folder onto the server.
+Step 2: Use git to grab scripts and contents of templates folder onto the server.
 
 Step 3: Use the command "pip install -r 'Python Req.txt'" otherwise install the modules one by one. mysql-connector-python is the big change from the previous draft of this file but it was already installed on my version of Python.
 
-Step 2: Edit the python scripts with the password for the local MYSQL server.
+Step 4: Edit the python scripts with the password for the local MYSQL server.
 
-Step 3: Run Database2.py to create database and tables.
+Step 5: Run Database2.py to create database and tables.
 
-Step 4: Connect WebApp.py to apache or run by itself to run locally.
+Step 6: Connect WebApp.py to apache or run by itself to run locally.
 
-Step 5: Run a browser to look at the website.
+Step 7: Run a browser to look at the website.
 
-Step 6: Run Databaseupdate.py to update the database and refresh the browser to see the change in the results.
+Step 8: Run Databaseupdate.py to update the database and refresh the browser to see the change in the results.
 
 
 Future revisions:
