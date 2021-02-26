@@ -53,5 +53,5 @@ def smartgarden():
     return render_template('smartgarden.html', test=myresult); #For now the html page is given a list with tuples in it.
     
 if __name__ == '__main__':
-    #app.run(debug=True)
-    app.run(debug=True, host='127.0.0.1', port=5020)
+    app.run(debug=True)
+    #app.run(debug=True, host='127.0.0.1', port=5020)
