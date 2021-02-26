@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Stations{% endblock %}
+{% block content %}
+
+<div class="content-section">
+  <div class="inner">
+    <br/>
+    <h1 style="text-align:center;">Stations</h1>
+    {% if stations %}
+      <hr class="intro-divider">
+      <div class="center">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th width="15%"> Code </th>
+              <th width="40%"> Name </th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for station in stations %}
+            <tr>
+              <td> {{ station.code }} </td>
+              <td> {{ station.name }} </td>
+              <td>
+                {% if station.sensors %}
+                  {{ station.sensors|length }}
+                {% else %}
+                  0
+                {% endif %}
+              </td>
+              <td>
+              <td>
+                <a href="{{ url_for('crud.station_data', code=station.code) }}">
+                  <i class="fas fa-th"></i> Data
+                </a>
+              </td>
+              <td>
+                <a href="{{ url_for('crud.edit_station', code=station.code) }}">
+                  <i class="fa fa-pencil"></i> Edit
+                </a>
+              </td>
+              <td>
+                <a href="{{ url_for('crud.delete_station', code=station.code) }}">
+                  <i class="fa fa-trash"></i> Delete
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div style="text-align: center">
+    {% else %}
+      <div style="text-align: center">
+        <h3> No stations have been added. </h3>
+        <hr class="intro-divider">
+    {% endif %}
+      <a href="{{ url_for('crud.add_station') }}" class="btn btn-default btn-lg">
+        <i class="fa fa-plus"></i>
+        Add Station
+      </a>
+    </div>
+  </div>
+</div>
+{% block footer %}{{  super() }}{% endblock footer%}
+{% endblock %}

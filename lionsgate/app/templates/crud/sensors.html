@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Stations{% endblock %}
+{% block content %}
+
+<div class="content-section">
+  <div class="inner">
+    <br/>
+    <h1 style="text-align:center;">{{ title }}</h1>
+    {% if sensors %}
+      <hr class="intro-divider">
+      <div class="center">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th width="15%"> Id </th>
+              <th width="40%"> Station </th>
+              <th width="15%"> Name </th>
+              <th width="15%"> Type </th>
+              <th width="15%"> Manufacturer </th>
+              <th width="15%"> Part No</th>
+              <th width="15%"> URL </th>
+              <th width="15%"> Notes </th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for sensor in sensors %}
+            <tr>
+              <td> {{ sensor.id }} </td>
+              <td> {{ sensor.staion_code }} </td>
+              <td> {{ sensor.name }} </td>
+              <td> {{ sensor.type }} </td>
+              <td> {{ sensor.manufacturer }} </td>
+              <td> {{ sensor.part_no }} </td>
+              <td> {{ sensor.url }} </td>
+              <td> {{ sensor.notes_text }} </td>
+              <td>
+                {% if sensor.data %}
+                  {{ sensor.data|length }}
+                {% else %}
+                  0
+                {% endif %}
+              </td>
+              <td>
+                <a href="{{ url_for('crud.sensor_data', id=sensor.id) }}">
+                  <i class="fas fa-th"></i> Data
+                </a>
+              </td>
+              <td>
+                <a href="{{ url_for('crud.edit_sensor', id=sensor.id) }}">
+                  <i class="fa fa-pencil"></i> Edit
+                </a>
+              </td>
+              <td>
+                <a href="{{ url_for('crud.delete_sensor', id=sensor.id) }}">
+                  <i class="fa fa-trash"></i> Delete
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div style="text-align: center">
+    {% else %}
+      <div style="text-align: center">
+        <h3> No sensors have been added. </h3>
+        <hr class="intro-divider">
+    {% endif %}
+      <a href="{{ url_for('crud.add_sensor') }}" class="btn btn-default btn-lg">
+        <i class="fa fa-plus"></i>
+        Add Sensor
+      </a>
+    </div>
+  </div>
+</div>
+{% block footer %}{{  super() }}{% endblock footer%}
+{% endblock %}
