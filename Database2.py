@@ -4,7 +4,7 @@ import Databasetable
 mydb = mysql.connector.connect( #Server info goes here
   host="localhost",
   user="root",
-  password=""
+  password="Smartgarden"
 )
 
 mycursor = mydb.cursor() #Connect server info with a variable

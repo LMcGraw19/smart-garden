@@ -4,10 +4,10 @@ def main():
     mydb = mysql.connector.connect(
       host="localhost",
       user="root",
-      password="",
+      password="Smartgarden",
       database="SmartGarden"
     )
-
+    
     mycursor = mydb.cursor()
 
     #Table creation below

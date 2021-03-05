@@ -25,10 +25,9 @@ def smartgarden():
     mydb = mysql.connector.connect(
       host="localhost",
       user="root",
-      password="",
+      password="Smartgarden",
       database="SmartGarden"
     )
-
     mycursor = mydb.cursor()
     
     mycursor.execute('SELECT * FROM air_temperature')
