@@ -1,19 +1,138 @@
-<!DOCTYPE  html>
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Smart Garden </title>
-	</head>
-	<body>
-		<h1>Welcome to the Smart Garden!</h1>
-		<br>
-		{{test}}
-		<br>
-		<button onClick="window.location.reload();">Refresh Page</button>
-		
-		<a href="/">"HomePage" </a>
-		
-		
-<meta http-equiv="refresh" content="5" >
+
+<head>
+    <title>Smart Garden </title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+</head>
+
+<body>
+    <h1>Welcome to the Smart Garden!</h1>
+    <button onClick="window.location.reload();">Refresh Page</button>
+    <button onClick="localtemp();">Temperture graph</button>
+    <button onClick="localhumi();">Humidity graph</button>
+
+    <a href="/">"HomePage" </a>
+
+
+    <meta http-equiv="refresh" content="5">
+
+    <canvas id="myChart" width="400" height="400"></canvas>
+
+    <body onload="startup({{time}},{{temp}},{{humi}})">
+
+ 
+		<script> //https://beautifier.io/ used for both javascript and html
+function startup(time, temp, humi) {
+    if (localStorage.getItem("graphlocal") === null) {
+        // Retrieve
+        charttemp(time, temp);
+    } else if (localStorage.getItem("graphlocal") === "humi") {
+        charthumi(time, humi);
+    } else {
+        charttemp(time, temp);
+    }
+}
+
+function localtemp() {
+    localStorage.setItem("graphlocal", "temp");
+    location.reload();
+}
+
+function localhumi() {
+    localStorage.setItem("graphlocal", "humi");
+    location.reload();
+}
+
+
+
+
+function charttemp(time, temp) {
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: time,
+            datasets: [{
+                label: 'Temperture',
+                data: temp,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    })
+};
+
+function charthumi(time, humi) {
+
+
+
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: time,
+            datasets: [{
+                label: 'Humidity',
+                data: humi,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    })
+};
+
+</script>
 
 
 	</body>

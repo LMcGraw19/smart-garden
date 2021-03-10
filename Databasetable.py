@@ -11,8 +11,8 @@ def main():
     mycursor = mydb.cursor()
 
     #Table creation below
-    mycursor.execute("CREATE TABLE Air_Temperature (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), temp VARCHAR(255), humidity VARCHAR(255))")
-    mycursor.execute("CREATE TABLE Soil_Temperture (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), temp VARCHAR(255), moisture VARCHAR(255))")
+    mycursor.execute("CREATE TABLE Air_Temperature (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), temp INT, humidity INT)")
+    mycursor.execute("CREATE TABLE Soil_Temperture (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), temp INT, moisture INT)")
     mycursor.execute("CREATE TABLE Light_Indensity (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), reading VARCHAR(255))")
     mycursor.execute("CREATE TABLE Wind_Speed_and_direction (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), speed VARCHAR(255), direction VARCHAR(255))")
     mycursor.execute("CREATE TABLE Rainfall (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), reading VARCHAR(255))")
@@ -20,20 +20,20 @@ def main():
     #Variables are set up with data to go into tables
     sql = "INSERT INTO Air_Temperature (time, temp, humidity) VALUES (%s, %s, %s)"
     val = [
-      ('1pm', '-15oC', '10'),
-      ('1.30pm', '-10oC', '12'),
-      ('2pm', '-12oC', '50'),
-      ('2.30pm', '-14oC', '40'),
-      ('3pm', '-19oC', '78'),
+      ('1pm', -15, 10),
+      ('1.30pm', -10, 12),
+      ('2pm', -12, 50),
+      ('2.30pm', -14, 40),
+      ('3pm', -19, 78),
     ]
 
     sql2 = "INSERT INTO Soil_Temperture (time, temp, moisture) VALUES (%s, %s, %s)"
     val2 = [
-      ('1pm', '-15oC', '10'),
-      ('1.30pm', '-10oC', '12'),
-      ('2pm', '-12oC', '50'),
-      ('2.30pm', '-14oC', '40'),
-      ('3pm', '-19oC', '78'),
+      ('1pm', -15, 10),
+      ('1.30pm', -10, 12),
+      ('2pm', -12, 50),
+      ('2.30pm', -14, 40),
+      ('3pm', -19, 78),
     ]
 
     sql3 = "INSERT INTO Light_Indensity (time, reading) VALUES (%s, %s)"

@@ -46,10 +46,17 @@ def smartgarden():
     sql = "SELECT * FROM air_temperature LIMIT 5 OFFSET %s" # MYSQL statement
     
     mycursor.execute(sql, list_row) #Statement that executes the MYSQL statement with the variable defined within.
-
-    myresult = list(mycursor.fetchall()) #fetchall gives us the answer from the MYSQL statement
+    myresult = mycursor.fetchall() #fetchall gives us the answer from the MYSQL statement
+    timelist = []
+    templist = []
+    humiditylist = []
     
-    return render_template('smartgarden.html', test=myresult); #For now the html page is given a list with tuples in it.
+    for row in myresult:
+        timelist.append(row[1])
+        templist.append(row[2])
+        humiditylist.append(row[3])
+    
+    return render_template('smartgarden.html', time=timelist, temp=templist, humi=humiditylist); #For now the html page is given a list with tuples in it.
     
 if __name__ == '__main__':
     app.run(debug=True)
