@@ -12,11 +12,11 @@ def main():
 
     sql = "INSERT INTO Air_Temperature (time, temp, humidity) VALUES (%s, %s, %s)"
     val = [
-      ('3.30pm', '-15oC', '10'),
-      ('4pm', '-10oC', '12'),
-      ('4.30pm', '-12oC', '50'),
-      ('5pm', '-14oC', '40'),
-      ('5.30pm', '-19oC', '100'),
+      ('3.30pm', -15, 10),
+      ('4pm', 10, 12),
+      ('4.30pm', -12, 50),
+      ('5pm', 14, 40),
+      ('5.30pm', 19, 100),
     ]
     
     mycursor.executemany(sql, val)

@@ -1,32 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Smart Garden </title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-</head>
-
-<body>
-    <h1>Welcome to the Smart Garden!</h1>
-    <button onClick="window.location.reload();">Refresh Page</button>
-    <button onClick="localtemp();">Temperture graph</button>
-    <button onClick="localhumi();">Humidity graph</button>
-
-    <a href="/">"HomePage" </a>
-
-
-    <meta http-equiv="refresh" content="5">
-
-<div class="chart-container" style="position: relative; height:40vh; width:80vw">
-    <canvas id="myChart"></canvas>
-</div>
-
-    <!canvas id="myChart" width="1" height="1"></canvas>
-
-    <body onload="startup({{time}},{{temp}},{{humi}})">
-
- 
-		<script> //https://beautifier.io/ used for both javascript and html
 function startup(time, temp, humi) {
     if (localStorage.getItem("graphlocal") === null) {
         // Retrieve
@@ -135,9 +106,3 @@ function charthumi(time, humi) {
         }
     })
 };
-
-</script>
-
-
-	</body>
-</html>

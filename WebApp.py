@@ -17,10 +17,14 @@ api = Api(app)
 #api.add_resource(Hello, "/<string:name>")
 
 @app.route('/')
-def home():
-    return render_template('welcome.html');
+def index():
+    return render_template('index.html');
 
-@app.route('/smartgarden')
+@app.route('/Sensors')
+def sensors():
+    return render_template('sensors.html');
+
+@app.route('/Charts')
 def smartgarden():
     mydb = mysql.connector.connect(
       host="localhost",
@@ -56,7 +60,7 @@ def smartgarden():
         templist.append(row[2])
         humiditylist.append(row[3])
     
-    return render_template('smartgarden.html', time=timelist, temp=templist, humi=humiditylist); #For now the html page is given a list with tuples in it.
+    return render_template('charts.html', time=timelist, temp=templist, humi=humiditylist); #For now the html page is given a list with tuples in it.
     
 if __name__ == '__main__':
     app.run(debug=True)
