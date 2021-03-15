@@ -105,7 +105,8 @@ void retrieveSHT21Readings()
 
 void retrieveTSL2591Readings()
 {
-  Serial.printf("Light brightness is %d\n", tsl.getLuminosity(TSL2591_VISIBLE));
+  luminosityArray[i] = tsl.getLuminosity(TSL2591_VISIBLE);
+//   Serial.printf("Inserted %d into luminosity array\n", luminosityArray[i]);
 }
 
 void configureTSL2591()
