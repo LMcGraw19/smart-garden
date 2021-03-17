@@ -20,11 +20,11 @@ def main():
     #Variables are set up with data to go into tables
     sql = "INSERT INTO Air_Temperature (time, temp, humidity) VALUES (%s, %s, %s)"
     val = [
-      ('1pm', -15, 10),
-      ('1.30pm', -10, 12),
-      ('2pm', -12, 50),
-      ('2.30pm', -14, 40),
-      ('3pm', -19, 78),
+      ('1pm', 15, 10),
+      ('1.30pm', 10, 12),
+      ('2pm', -2, 50),
+      ('2.30pm', 14, 40),
+      ('3pm', 19, 78),
     ]
 
     sql2 = "INSERT INTO Soil_Temperture (time, temp, moisture) VALUES (%s, %s, %s)"
