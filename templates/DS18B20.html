@@ -10,6 +10,8 @@
     <link href="{{ url_for('static', filename='css/Styles.css') }}" rel="stylesheet">
 
     <title>Smart Garden</title>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='garden.js') }}"></script>
 </head>
 
 <body>
@@ -21,7 +23,7 @@
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="Charts.html">Charts<span class="sr-only">(current)</span></a>
@@ -33,24 +35,20 @@
     </section>
 
     <!--Insert database/chart script here-->
-
+	<div class="chart-container" style="position: relative; height:50vh; width:70vw">
+    <canvas id="myChart"></canvas>
+</div>
+	<!meta http-equiv="refresh" content="5">
+	<body onload="DS18B20({{time}},{{temp}})">
     <!--MAIN CONTENT-->
     <div class="container">
         <div class="jumbotron">
-            <h2>Database Charts</h2>
+            <h2>Sensor Station G</h2>
             <p>
-                Select the Sensor Station below to view the sensor readings within the garden.
+                The following information on this page shows the readings of the sensors located within Sensor Station G.
             </p>
         </div>
-        <div class="container">
-            <div id="option-buttons" class="btn-grid">
-              <a href="BME280" class="btn">Sensor Station B</a>
-              <a href="DS18B20" class="btn">Sensor Station Y</a>
-              <a href="SEN0114" class="btn">Sensor Station R</a>
-              <a href="SHT21" class="btn">Sensor Station G</a>
-              <a href="TSL2591" class="btn">Sensor Station P</a>
-            </div>
-        </div>
+        <a href="Charts.html" class="btn">Go Back</a>
     </div>
 
     <!-- FOOTER -->

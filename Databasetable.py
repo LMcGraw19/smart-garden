@@ -11,56 +11,56 @@ def main():
     mycursor = mydb.cursor()
 
     #Table creation below
-    mycursor.execute("CREATE TABLE Air_Temperature (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), temp INT, humidity INT)")
-    mycursor.execute("CREATE TABLE Soil_Temperture (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), temp INT, moisture INT)")
-    mycursor.execute("CREATE TABLE Light_Indensity (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), reading VARCHAR(255))")
-    mycursor.execute("CREATE TABLE Wind_Speed_and_direction (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), speed VARCHAR(255), direction VARCHAR(255))")
-    mycursor.execute("CREATE TABLE Rainfall (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), reading VARCHAR(255))")
+    mycursor.execute("CREATE TABLE BME280 (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), temp INT, pres INT, alti INT, humi INT)")
+    mycursor.execute("CREATE TABLE DS18B20 (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), temp INT)")
+    mycursor.execute("CREATE TABLE SEN0114 (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), mois INT)")
+    mycursor.execute("CREATE TABLE SHT21 (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), temp INT, humi INT)")
+    mycursor.execute("CREATE TABLE TSL2591 (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), lumi  FLOAT)")
 
     #Variables are set up with data to go into tables
-    sql = "INSERT INTO Air_Temperature (time, temp, humidity) VALUES (%s, %s, %s)"
+    sql = "INSERT INTO BME280 (time, temp, pres, alti, humi) VALUES (%s, %s, %s, %s, %s)"
     val = [
-      ('1pm', 15, 10),
-      ('1.30pm', 10, 12),
-      ('2pm', -2, 50),
-      ('2.30pm', 14, 40),
-      ('3pm', 19, 78),
+      ('1pm', 15, 10, 20, 51),
+      ('1.30pm', 10, 12, 45, 80),
+      ('2pm', -2, 50, 50, 40),
+      ('2.30pm', 14, 40, 70, 80),
+      ('3pm', 19, 78, 70, 90),
     ]
 
-    sql2 = "INSERT INTO Soil_Temperture (time, temp, moisture) VALUES (%s, %s, %s)"
+    sql2 = "INSERT INTO DS18B20 (time, temp) VALUES (%s, %s)"
     val2 = [
-      ('1pm', -15, 10),
-      ('1.30pm', -10, 12),
-      ('2pm', -12, 50),
-      ('2.30pm', -14, 40),
-      ('3pm', -19, 78),
+      ('1pm', -15),
+      ('1.30pm', -10),
+      ('2pm', -12),
+      ('2.30pm', -14),
+      ('3pm', -19),
     ]
 
-    sql3 = "INSERT INTO Light_Indensity (time, reading) VALUES (%s, %s)"
+    sql3 = "INSERT INTO SEN0114 (time, mois) VALUES (%s, %s)"
     val3 = [
-      ('1pm', 'cloudy'),
-      ('1.30pm', 'still cloudy'),
-      ('2pm', "it's Edinburgh'"),
-      ('2.30pm', 'Summer time'),
-      ('3pm', 'and back to winter'),
+      ('1pm', 454),
+      ('1.30pm', 200),
+      ('2pm', 780),
+      ('2.30pm', 500),
+      ('3pm', 700),
     ]
 
-    sql4 = "INSERT INTO Wind_Speed_and_direction (time, speed, direction) VALUES (%s, %s, %s)"
+    sql4 = "INSERT INTO SHT21 (time, temp, humi) VALUES (%s, %s, %s)"
     val4 = [
-      ('1pm', '25mph', 'West'),
-      ('1.30pm', '150mph', 'North'),
-      ('2pm', '10mph', 'East'),
-      ('2.30pm', '5mph', 'South'),
-      ('3pm', '189mph', 'West'),
+      ('1pm', 15, 75),
+      ('1.30pm', 10, 80),
+      ('2pm', 12, 45),
+      ('2.30pm', 4, 72),
+      ('3pm', 19, 30),
     ]
 
-    sql5 = "INSERT INTO Rainfall (time, reading) VALUES (%s, %s)"
+    sql5 = "INSERT INTO TSL2591 (time, lumi) VALUES (%s, %s)"
     val5 = [
-      ('1pm', '10mm'),
-      ('1.30pm', '5mm'),
-      ('2pm', '15mm'),
-      ('2.30pm', '9mm'),
-      ('3pm', '78mm'),
+      ('1pm', .7),
+      ('1.30pm', .6),
+      ('2pm', .5),
+      ('2.30pm', .8),
+      ('3pm', .9),
     ]
 
     #variables that stored mysql commands and its assoicated data are execueted
