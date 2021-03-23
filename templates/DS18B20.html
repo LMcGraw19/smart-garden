@@ -39,7 +39,11 @@
     <canvas id="myChart"></canvas>
 </div>
 	<!meta http-equiv="refresh" content="5">
-	<body onload="DS18B20({{time}},{{temp}})">
+	<body onload="DS18B20({{time}},{{temp}},{{column}})">
+	
+	
+	<!body onload="addData(myChart, 'Test', '#ff0000', {{temp}})">
+	
     <!--MAIN CONTENT-->
     <div class="container">
         <div class="jumbotron">

@@ -53,19 +53,42 @@ def smartgarden():
     myresult = mycursor.fetchall() #fetchall gives us the answer from the MYSQL statement
     timelist = []
     templist = []
-    preslist = []
-    altilist = []
-    humiditylist = []
     
-    for row in myresult:
+    sql = "SHOW columns FROM BME280"
+    mycursor.execute(sql)
+    columns = mycursor.fetchall()
+    
+    columns = list(columns)
+    print(columns)
+    columnlist = []
+    
+    for row in columns[2::]:
+        print(row)
+        columnlist.append(row[0])
+    print(columnlist)
+    
+    for row in list(myresult):
         timelist.append(row[1])
-        templist.append(row[2])
-        preslist.append(row[3])
-        altilist.append(row[4])
-        humiditylist.append(row[5])
-        
+        listloop = list(row)
+        listloop.pop(0)
+        listloop.pop(0)
+        templist.append(listloop)
     
-    return render_template('BME280.html', time=timelist, temp=templist, pres=preslist, alti=altilist, humi=humiditylist);#For now the html page is given a list with tuples in it.
+    formatlist = []
+    
+    for i in range(len(templist[0])):
+        formatlist.append([])
+    
+    for x in templist:
+        count = 0
+        for data in x:
+            formatlist[count].append(data)
+            count += 1
+
+
+    print(formatlist)
+    
+    return render_template('BME280.html', time=timelist, temp=formatlist, column=columnlist);#For now the html page is given a list with tuples in it.
     
 @app.route('/DS18B20')
 def DS18B20():
@@ -94,14 +117,45 @@ def DS18B20():
     
     mycursor.execute(sql, list_row) #Statement that executes the MYSQL statement with the variable defined within.
     myresult = mycursor.fetchall() #fetchall gives us the answer from the MYSQL statement
+    
+    sql = "SHOW columns FROM DS18B20"
+    mycursor.execute(sql)
+    columns = mycursor.fetchall()
+    
+    columns = list(columns)
+    print(columns)
+    columnlist = []
+    
+    for row in columns[2::]:
+        print(row)
+        columnlist.append(row[0])
+    print(columnlist)
+            
+    
     timelist = []
     templist = []
     
-    for row in myresult:
+    for row in list(myresult):
         timelist.append(row[1])
-        templist.append(row[2])        
+        listloop = list(row)
+        listloop.pop(0)
+        listloop.pop(0)
+        templist.append(listloop)
     
-    return render_template('DS18B20.html', time=timelist, temp=templist);#For now the html page is given a list with tuples in it.
+    formatlist = []
+    
+    for i in range(len(templist[0])):
+        formatlist.append([])
+    
+    for x in templist:
+        count = 0
+        for data in x:
+            formatlist[count].append(data)
+            count += 1
+
+
+    print(formatlist)
+    return render_template('DS18B20.html', time=timelist, temp=formatlist, column=columnlist);#For now the html page is given a list with tuples in it.
   
 @app.route('/SEN0114')
 def SEN0114():

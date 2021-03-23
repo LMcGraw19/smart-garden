@@ -122,50 +122,37 @@ function BME280(time, temp, pres, alti, humi) {
 
 
 
-function DS18B20(time, temp) {
+function DS18B20(time, temp, column) {
 
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-	    type: 'line',
-        data: {
-            labels: time,
-            datasets: [{
-			    label: 'Temperture',
-                data: temp,
-                
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1,
-				fill: false
-            },]
-		
-		},
-        options: {layout: {
-            padding: {
-                left: 0,
-                right: 4,
-                top: 0,
-                bottom: 0
-            }
-        },
-			scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            
-        },
-		maintainAspectRatio: false
+    var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: time,
+        datasets: [{
+			      backgroundColor: '#00ff00',
+            label: column[0],
+            data: temp[0],
+			fill: false
+            }]
 		}
-    })
-};
+});
+
+function addData(chart, label, color, data){
+	
+	for(i=1; i < data.length; i++){
+		chart.data.datasets.push({
+	    label: label[i],
+      backgroundColor: color,
+      data: data[i],
+	  fill: false
+    })};
+    chart.update();
+}
+
+addData(myChart, column, '#ff0000', temp);
+
+}
 
 function SEN0114(time, mois) {
 
