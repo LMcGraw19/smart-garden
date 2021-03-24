@@ -61,13 +61,23 @@ void loop()
     retrieveBMEReadings();
     retrieveDS18Readings();
     retrieveSEN0114Readings();
-    retrieveSHT21Readings();    retrieveTSL2591Readings();
-    delay(5000); //will be a two minute delay
+    retrieveSHT21Readings();    
+    retrieveTSL2591Readings();
+    delay(1250); //will be a two minute delay
     Serial.println();
   }
 
   //Calculate averages()
-
+  calculateAverageReadings(airTempArray);
+  calculateAverageReadings(pressureArray);
+  calculateAverageReadings(altitudeArray);
+  calculateAverageReadings(humidityArray);
+  calculateAverageReadings(soilTempArray);
+  calculateAverageReadings(soilMoistureArray);
+  calculateAverageReadings(airTempArraySHT);
+  calculateAverageReadings(humidityArraySHT);
+  calculateAverageReadings(luminosityArray);
+  
   //Send averages to LoRa ()
 
   //loop will restart from beginning, resetting i = 0 again;
@@ -77,7 +87,6 @@ void loop()
 void retrieveBMEReadings()
 {
   airTempArray[i] = bme.readTemperature();
-//  Serial.printf("Picking up a temp of %.2f\n", airTempArray[i]);
   pressureArray[i] = bme.readPressure() / 100.0F;
   altitudeArray[i] = bme.readAltitude(SEALEVELPRESSURE_HPA);
   humidityArray[i] = bme.readHumidity();
@@ -87,29 +96,56 @@ void retrieveDS18Readings()
 {
   dallasTemp.requestTemperatures();
   soilTempArray[i] = dallasTemp.getTempCByIndex(0);
-//  Serial.printf("Inserting %.2f into soil temp array\n", soilTempArray[i]);
 }
 
 void retrieveSEN0114Readings()
 {
   soilMoistureArray[i] = analogRead(pinUsedBySEN0114);
-//  Serial.printf("Inserted %d into the soil moisture array\n", soilMoistureArray[i]);
 }
 
 void retrieveSHT21Readings()
 {
   airTempArraySHT[i] = sht.getTemperature();
   humidityArraySHT[i] = sht.getHumidity();
-//  Serial.printf("Inserted %.2f into SHT temperature array, %.2f into SHT humidity array\n", airTempArraySHT[i], humidityArraySHT[i]);
 }
 
 void retrieveTSL2591Readings()
 {
-  Serial.printf("Light brightness is %d\n", tsl.getLuminosity(TSL2591_VISIBLE));
+  luminosityArray[i] = tsl.getLuminosity(TSL2591_VISIBLE);
 }
 
 void configureTSL2591()
 {
   tsl.setGain(TSL2591_GAIN_MED);
   tsl.setTiming(TSL2591_INTEGRATIONTIME_300MS);
+}
+
+int calculateAverageReadings(int tempArr[])
+{
+  int sum = 0;
+  int avg = 0;
+  
+  for (int i = 0; i < 5; i++)
+  {
+    sum += tempArr[i];
+  }
+
+  avg = sum / 5;
+  Serial.printf("Average temp is: %d\n", avg);
+  return avg;
+}
+
+float calculateAverageReadings(float tempArr[])
+{
+  float sum = 0;
+  float avg = 0;
+
+  for (int i = 0; i < 5; i++)
+  {
+    sum += tempArr[i];
+  }
+
+  avg = sum / 5;
+  Serial.printf("Average temp is: %f\n", avg);
+  return avg;
 }
