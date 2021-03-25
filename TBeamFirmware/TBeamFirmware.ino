@@ -5,10 +5,27 @@
 #include <DallasTemperature.h> //ds18
 #include <SHT21.h> //sht21
 #include <Adafruit_TSL2591.h> //tsl
+#include <SPI.h> //LoRa
+#include <LoRa.h> //LoRa
+#include "SSD1306.h" //LoRa
 
 #define SEALEVELPRESSURE_HPA (1013.25) //bme
+#define SCK     5    //GPIO5  -- SX1278's SCK -- LoRa
+#define MISO    19   //GPIO19 -- SX1278's MISnO -- LoRa
+#define MOSI    27   //GPIO27 -- SX1278's MOSI -- LoRa
+#define SS      18   //GPIO18 -- SX1278's CS -- LoRa
+#define RST     14   // GPIO14 -- SX1278's RESET -- LoRa
+#define DI0     26   //GPIO26 -- SX1278's IRQ(Interrupt Request) -- LoRa
+#define BAND  868E6 //-- LoRa
 
 int i; //used throughout the program, this is used to count number of readings taken.
+
+
+
+
+
+
+
 
 //BME280 variables
 Adafruit_BME280 bme;
@@ -17,24 +34,47 @@ float pressureArray[5];
 float altitudeArray[5];
 float humidityArray[5];
 
+float avgAirTemp;
+float avgPressure;
+float avgAltitude;
+float avgHumidity;
+
 //DS18B20 variables
 const int pinUsedByDS18 = 23; //number assigned to this variable = pin on board that the sensor is connected to.
 OneWire oneWire(pinUsedByDS18);
 DallasTemperature dallasTemp(&oneWire);
 float soilTempArray[5];
+float avgSoilTemp;
 
 //SEN0114 variables
 const int pinUsedBySEN0114 = 4;
 int soilMoistureArray[5];
+int avgSoilMoisture;
 
 //SHT21 variables
 SHT21 sht;
 float airTempArraySHT[5];
 float humidityArraySHT[5];
+float avgAirTempSHT;
+float avgHumiditySHT;
 
 //TSL2591 variables
 Adafruit_TSL2591 tsl = Adafruit_TSL2591(2591);
 int luminosityArray[5];
+int avgLuminosity;
+
+//LoRa variables
+SSD1306 display(0x3c, 21, 22);
+String rssi = "RSSI --";
+String packSize = "--";
+String packet;
+
+
+
+
+
+
+
 
 void setup()
 {
@@ -42,8 +82,16 @@ void setup()
   bme.begin(0x76);
   dallasTemp.begin();
   Wire.begin();
-  configureTSL2591(); //function which sets up TSL2591 sensor
+  setUpTSL2591(); //function to set up TSL2591 sensor
+  setUpLoRa(); //function to set up LoRa sender communication
 }
+
+
+
+
+
+
+
 
 /*
  *Next function is loop(), which runs continuously from top to bottom. There are three main parts to this function 
@@ -59,31 +107,75 @@ void loop()
   for (i = 0; i < 5; i++) //when i = 5, loop will break and 10 minutes will have passed
   {
     retrieveBMEReadings();
-    retrieveDS18Readings();
+//    retrieveDS18Readings(); --COMMENTED OUT DUE TO HAVING ISSUE WHICH CAUSES LORA COMMUNICATION TO BREAK. NEEDS INVESTIGATED.
     retrieveSEN0114Readings();
     retrieveSHT21Readings();    
     retrieveTSL2591Readings();
-    delay(1250); //will be a two minute delay
-    Serial.println();
+    delay(500); //will be a two minute delay - or preferably T-Beam will be put to sleep for 2 minutes as this will preserve battery life.
   }
 
-  //Calculate averages()
-  calculateAverageReadings(airTempArray);
-  calculateAverageReadings(pressureArray);
-  calculateAverageReadings(altitudeArray);
-  calculateAverageReadings(humidityArray);
-  calculateAverageReadings(soilTempArray);
-  calculateAverageReadings(soilMoistureArray);
-  calculateAverageReadings(airTempArraySHT);
-  calculateAverageReadings(humidityArraySHT);
-  calculateAverageReadings(luminosityArray);
+  //Calculate and store average readings for each sensor
+  avgAirTemp = calculateAverageReadings(airTempArray);
+  avgPressure = calculateAverageReadings(pressureArray);
+  avgAltitude = calculateAverageReadings(altitudeArray);
+  avgHumidity = calculateAverageReadings(humidityArray);
+  avgSoilTemp = calculateAverageReadings(soilTempArray);
+  avgSoilMoisture = calculateAverageReadings(soilMoistureArray);
+  avgAirTempSHT = calculateAverageReadings(airTempArraySHT);
+  avgHumiditySHT = calculateAverageReadings(humidityArraySHT);
+  avgLuminosity = calculateAverageReadings(luminosityArray);
   
-  //Send averages to LoRa ()
+  //Send average results using LoRa
+  sendAverageResultsViaLoRa();
 
-  //loop will restart from beginning, resetting i = 0 again;
+  //(loop method now restarts from first line)
 
 }
 
+
+
+
+
+
+
+/*Setup methods, this code has been separated from the setup function for the sake of
+*the setup function's readability.
+*/
+void setUpTSL2591()
+{
+  tsl.setGain(TSL2591_GAIN_MED);
+  tsl.setTiming(TSL2591_INTEGRATIONTIME_300MS);
+}
+
+void setUpLoRa()
+{
+  pinMode(16,OUTPUT);
+  pinMode(2,OUTPUT);
+  
+  digitalWrite(16, LOW);    // set GPIO16 low to reset OLED
+  delay(50); 
+  digitalWrite(16, HIGH); // while OLED is running, must set GPIO16 in high
+  
+  SPI.begin(SCK,MISO,MOSI,SS);
+  LoRa.setPins(SS,RST,DI0);
+  if (!LoRa.begin(868100000)) {
+    Serial.println("Starting LoRa failed!");
+    while (1);
+  }
+  
+  display.init();
+  display.flipScreenVertically();  
+  display.setFont(ArialMT_Plain_10);
+}
+
+
+
+
+
+
+
+
+//Methods for retrieving readings, methods are split per sensor
 void retrieveBMEReadings()
 {
   airTempArray[i] = bme.readTemperature();
@@ -114,12 +206,18 @@ void retrieveTSL2591Readings()
   luminosityArray[i] = tsl.getLuminosity(TSL2591_VISIBLE);
 }
 
-void configureTSL2591()
-{
-  tsl.setGain(TSL2591_GAIN_MED);
-  tsl.setTiming(TSL2591_INTEGRATIONTIME_300MS);
-}
 
+
+
+
+
+
+
+/*Methods for calculting average readings stored in each array.
+ * This method has been overloaded because some sensors return integer readings
+ * and some return float readings, therefore separate methods have been created for 
+ * dealing with each data type.
+ */
 int calculateAverageReadings(int tempArr[])
 {
   int sum = 0;
@@ -131,7 +229,6 @@ int calculateAverageReadings(int tempArr[])
   }
 
   avg = sum / 5;
-  Serial.printf("Average temp is: %d\n", avg);
   return avg;
 }
 
@@ -146,6 +243,43 @@ float calculateAverageReadings(float tempArr[])
   }
 
   avg = sum / 5;
-  Serial.printf("Average temp is: %f\n", avg);
   return avg;
+}
+
+
+
+
+
+
+
+/*Method for the sending of average readings via LoRa.
+ * There are currently 4 readings being sent. Code for sending the rest of the readings
+ * will be written in the next sprint.
+ */
+void sendAverageResultsViaLoRa()
+{
+  //send packets
+  LoRa.beginPacket();
+  LoRa.print("avgAirTemp: ");
+  LoRa.print(avgAirTemp);
+  LoRa.endPacket();
+  delay(1500);
+  
+  LoRa.beginPacket();
+  LoRa.print("avgHumidity: ");
+  LoRa.print(avgHumidity);
+  LoRa.endPacket();
+  delay(1500);
+  
+  LoRa.beginPacket();
+  LoRa.print("avgSoilMoisture: ");
+  LoRa.print(avgSoilMoisture);
+  LoRa.endPacket();
+  delay(1500);
+
+  LoRa.beginPacket();
+  LoRa.print("avgLuminosity: ");
+  LoRa.print(avgLuminosity);
+  LoRa.endPacket();
+  delay(1500);
 }
