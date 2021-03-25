@@ -23,10 +23,10 @@
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="Charts.html">Charts<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="Charts">Charts<span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>
@@ -35,13 +35,14 @@
     </section>
 
     <!--Insert database/chart script here-->
+
 	<div class="chart-container" style="position: relative; height:50vh; width:70vw">
     <canvas id="myChart"></canvas>
 </div>
-	<!meta http-equiv="refresh" content="5">
-	<body onload="DS18B20({{time}},{{temp}},{{column}})">
+	<meta http-equiv="refresh" content="15">
+	<body onload="graph({{time}},{{temp}},{{column}})">
     <!--MAIN CONTENT-->
-	
+	<br><br><br><br><br>
 	
     <div class="container">
         <div class="jumbotron">
@@ -50,7 +51,7 @@
                 The following information on this page shows the readings of the sensors located within Sensor Station B.
             </p>
         </div>
-        <a href="Charts.html" class="btn">Go Back</a>
+        <a href="Charts" class="btn">Go Back</a>
     </div>
 
     <!-- FOOTER -->
