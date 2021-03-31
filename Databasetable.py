@@ -11,7 +11,7 @@ def main():
     mycursor = mydb.cursor()
 
     #Table creation below
-    mycursor.execute("CREATE TABLE BME280 (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), Temperature INT, Pressure INT, Altitude INT, Humidity INT)")
+    mycursor.execute("CREATE TABLE BME280 (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), Temperature FLOAT, Pressure FLOAT, Altitude FLOAT, Humidity FLOAT)")
     mycursor.execute("CREATE TABLE DS18B20 (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), Temperature INT)")
     mycursor.execute("CREATE TABLE SEN0114 (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), Moisture INT)")
     mycursor.execute("CREATE TABLE SHT21 (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(255), Temperature INT, Humidity INT)")

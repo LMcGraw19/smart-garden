@@ -28,6 +28,7 @@ api = Api(app)
 
 @app.route('/database', methods=['POST'])
 def database():
+    print('running', file=sys.stdout)
     data = request.get_json()
     result = json.dumps(data)
     
@@ -36,12 +37,46 @@ def database():
     values = str(data.values())
     values = values[14:-3:]
     values = values.split(',')
-    print(type(sql), file=sys.stdout)
+    values[0] = values[0][1:-1:]
+    
+    for val in range(len(values)):
+        if val != 0:
+            values[val] = float(values[val])
+        
+    
+    sqlupdate(sql, values)
+    
+    
     print(sql, file=sys.stdout)
     print(values, file=sys.stdout)
+        
     
     returnvalue = {'Update':'Complete'}
     return(returnvalue)
+
+def sqlupdate(sql, values):
+    mydb = mysql.connector.connect(
+      host="localhost",
+      user="root",
+      password="Smartgarden",
+      database="SmartGarden"
+    )
+    mycursor = mydb.cursor()
+    
+    values = tuple(values)
+    
+    if sql == 'BME280':
+        column = 'INSERT INTO BME280 (time, Temperature, Pressure, Altitude, Humidity) VALUES (%s, %s, %s, %s, %s)'
+    print(values, file=sys.stdout)
+    
+    gather = 'SELECT * FROM ' + sql
+    mycursor.execute(gather)
+    mycursor.fetchall()
+    
+    mycursor.execute(column, values)
+    
+    mydb.commit()
+    
 
 
 def sql(table):
