@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Smart Garden, website to access sensor database.">
     <meta name="keywords" content="Garden, Smart, Database, Sensors,">
 
@@ -21,13 +21,7 @@
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Lion's Gate Gardens</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="Charts.html">Charts<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="welcome.html">Return to Project Select</a>
+                        <a class="nav-link" href="Charts.html">Return to Charts <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>
@@ -35,28 +29,32 @@
         <!--Fixed NavBar Ends-->
     </section>
 
-    <!--Insert database/chart script here-->
-
     <!--MAIN CONTENT-->
-    <div class="container">
-        <div class="jumbotron">
-            <h2>Sensor Station B</h2>
-            <p>
-                The following information on this page shows the readings of the sensors located within Sensor Station B.
-            </p>
-        </div>
+<div class="container">         
+    <div class="content-section">
         <div class="inner">
-            <br/>
-              <a href="add-sensor.html" class="btn btn-default btn-lg">
-                <i class="fa fa-plus"></i>
-                Add Sensor
-              </a>
-              <a href="Charts.html" class="btn btn-default btn-lg">Go Back</a>
-            </div>
-          </div>
+        <div class="center">
+          <h1>Add Sensor Station</h1>
+          <br/>
+          
+  <form action="" method="post"
+    class="form" role="form">
+    <input id="csrf_token" name="csrf_token" type="hidden" value="IjFkNWEwNmUyZmIwOWJjNzkwZGRiOTYwODNjNDkzZGM4ZDQ3NjQzYjMi.YGRJmQ.uGNsmQNc-QQT_I86k77ewres8XY">
+  
+  <div class="form-group  required"><label class="control-label" for="code">Code</label>
+    <input class="form-control" id="code" name="code" required type="text" value="">
+    </div>
+  <div class="form-group  required"><label class="control-label" for="name">Name</label>
+    <input class="form-control" id="name" name="name" required type="text" value="">
+    </div>
+    <input class="btn btn-default" id="submit" name="submit" type="submit" value="Submit">
+  </form>
+      </div>
+    </div>
+  </div>
     </div>
 
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer class="py-5 bg-dark">
         <div class="container">
             <ul>
@@ -71,6 +69,7 @@
             </ul>
             <div id="copyright">&copy; 2021 Lions Gate Gardens. All rights reserved.</div>
         </div>
+        <!-- /.container -->
     </footer>
 </body>
 

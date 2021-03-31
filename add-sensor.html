@@ -1,0 +1,92 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Smart Garden, website to access sensor database.">
+    <meta name="keywords" content="Garden, Smart, Database, Sensors,">
+
+    <!-- Custom styles for this template -->
+    <link href="Styles.css" rel="stylesheet">
+
+    <title>Smart Garden</title>
+</head>
+
+<body>
+    <!--HEADER-->
+    <section id="header">
+        <!--NAVIGATION-->
+        <!--Fixed NavBar Begins-->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Charts.html">Return to Charts <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--Fixed NavBar Ends-->
+    </section>
+
+    <!--MAIN CONTENT-->
+    <div class="container">
+        <div class="content-section">
+            <div class="inner">
+              <div class="center">
+                  New Sensor
+                  <br/>
+                  
+          <form action="" method="post"
+            class="form" role="form">
+                <input id="csrf_token" name="csrf_token" type="hidden" value="IjFkNWEwNmUyZmIwOWJjNzkwZGRiOTYwODNjNDkzZGM4ZDQ3NjQzYjMi.YGRL3A.8JXz9YEIdHYBERFJjfOQ_bMF2y0">
+          <div class="form-group "><label class="control-label" for="id">Id</label> 
+                <input class="form-control" id="id" name="id" type="text" value="">
+            </div>
+          <div class="form-group  required"><label class="control-label" for="station_code">Station code</label>  
+                <input class="form-control" id="station_code" name="station_code" required type="text" value="">
+            </div>
+          <div class="form-group  required"><label class="control-label" for="name">Name</label>   
+                <input class="form-control" id="name" name="name" required type="text" value="">
+            </div>
+          <div class="form-group  required"><label class="control-label" for="type">Type</label>
+                <input class="form-control" id="type" name="type" required type="text" value="">
+            </div>
+          <div class="form-group "><label class="control-label" for="manufacturer">Manufacturer</label>
+                <input class="form-control" id="manufacturer" name="manufacturer" type="text" value="">
+            </div>
+          <div class="form-group "><label class="control-label" for="part_no">Part No.</label>
+                <input class="form-control" id="part_no" name="part_no" type="text" value="">
+            </div>
+          <div class="form-group "><label class="control-label" for="url">URL</label>
+                <input class="form-control" id="url" name="url" type="text" value="">
+            </div>
+          <div class="form-group "><label class="control-label" for="notes_text">Notes</label>
+                <textarea class="form-control" id="notes_text" name="notes_text"></textarea>
+            </div>
+                <input class="btn btn-default" id="submit" name="submit" type="submit" value="Submit">
+          </form>
+              </div>
+            </div>
+          </div>
+    </div>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <ul>
+                <li>
+                    <h4>Address</h4>
+                </li>
+                <li>Edinburgh Napier University</li>
+                <li>Merchsiton Campus</li>
+                <li>10 Colinton Road</li>
+                <li>EH10 5DT</li>
+                <li>Scotland</li>
+            </ul>
+            <div id="copyright">&copy; 2021 Lions Gate Gardens. All rights reserved.</div>
+        </div>
+        <!-- /.container -->
+    </footer>
+</body>
+
+</html>

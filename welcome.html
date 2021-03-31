@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Smart Garden, website to access sensor database.">
     <meta name="keywords" content="Garden, Smart, Database, Sensors,">
 
@@ -20,14 +20,8 @@
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Lion's Gate Gardens</a>
-                    </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="Charts.html">Charts<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="welcome.html">Return to Project Select</a>
+                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>
@@ -35,44 +29,35 @@
         <!--Fixed NavBar Ends-->
     </section>
 
-    <!--Insert database/chart script here-->
-
     <!--MAIN CONTENT-->
     <div class="container">
-        <div class="jumbotron">
-            <h2>Database Charts</h2>
-            <p>
-                Select the Sensor Station below to view the sensor readings within the garden.
-            </p>
-        </div>
         <div class="content-section">
+
+            <h1 style="text-align:center;">Welcome</h1>
+            <p style="text-align:center;">
+                Please select one of the following projects or submit a project to the Smart Garden Website.
+            </p>
+
             <div class="inner">
               <br/>
-              <h1 style="text-align:center;">Sensors</h1>
+              <h2 style="text-align:center;">Project</h2>
               
                 <div style="text-align: center">
-                    <div id="option-buttons" class="btn-grid">
-                        <a href="T-Beam-B.html" class="btn">Sensor Station B</a>
-                        <a href="T-Beam-Y.html" class="btn">Sensor Station Y</a>
-                        <a href="T-Beam-R.html" class="btn">Sensor Station R</a>
-                        <a href="T-Beam-G.html" class="btn">Sensor Station G</a>
-                        <a href="T-Beam-P.html" class="btn">Sensor Station P</a>
-                      </div>
+                    <a href="index.html" class="btn btn-default btn-lg">
+                        <i class="fa fa-plus"></i>
+                        The Lion's Gate Gardens
+                      </a>
                   <hr class="intro-divider">
               
-                <a href="add-station.html" class="btn btn-default btn-lg">
+                <a href="add-project.html" class="btn btn-default btn-lg">
                   <i class="fa fa-plus"></i>
-                  Add Sensor Station
+                  Add Project
                 </a>
               </div>
             </div>
           </div>
-        <div class="container">
-            
-        </div>
     </div>
-
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer class="py-5 bg-dark">
         <div class="container">
             <ul>
@@ -87,6 +72,7 @@
             </ul>
             <div id="copyright">&copy; 2021 Lions Gate Gardens. All rights reserved.</div>
         </div>
+        <!-- /.container -->
     </footer>
 </body>
 
