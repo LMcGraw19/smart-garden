@@ -1,7 +1,10 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
 #from flask_sqlalchemy import SQLAlchemy #No longer using this module
 import mysql.connector #Module that connects us to the database
+import requests
+import sys
+import json
 
 app = Flask(__name__)
 api = Api(app)
@@ -15,6 +18,31 @@ api = Api(app)
 #        return{"data": "Hello World"}
 #
 #api.add_resource(Hello, "/<string:name>")
+
+#class database(Resource):
+#    def post(self):
+ #       data = request.get_json()
+  #      print(type(data))
+
+#api.add_resource(database, "/database")
+
+@app.route('/database', methods=['POST'])
+def database():
+    data = request.get_json()
+    result = json.dumps(data)
+    
+    sql = str(data.keys())
+    sql = sql[12:-3:]
+    values = str(data.values())
+    values = values[14:-3:]
+    values = values.split(',')
+    print(type(sql), file=sys.stdout)
+    print(sql, file=sys.stdout)
+    print(values, file=sys.stdout)
+    
+    returnvalue = {'Update':'Complete'}
+    return(returnvalue)
+
 
 def sql(table):
     mydb = mysql.connector.connect(
