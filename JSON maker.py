@@ -3,7 +3,7 @@ import os
 import requests
 
 def main():
-        listlist = ['3.30pm',15,10,20,51]
+        listlist = ['4.30pm',15,10,30,51]
         json_d = {'BME280': listlist}
 
         url = 'http://127.0.0.1:5000/database'
