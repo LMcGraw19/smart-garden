@@ -17,9 +17,10 @@
 #define RST     14   // GPIO14 -- SX1278's RESET -- LoRa
 #define DI0     26   //GPIO26 -- SX1278's IRQ(Interrupt Request) -- LoRa
 #define BAND  868E6 //-- LoRa
+#define millisecondsToSecondsFactor 1000000// sleep -- conversion factor for micro seconds to seconds
+#define secondsToSleep  120 //sleep -- number of seconds to put T-Beam to sleep for
 
 int i; //used throughout the program, this is used to count number of readings taken.
-
 
 
 
@@ -107,11 +108,12 @@ void loop()
   for (i = 0; i < 5; i++) //when i = 5, loop will break and 10 minutes will have passed
   {
     retrieveBMEReadings();
-//    retrieveDS18Readings(); --COMMENTED OUT DUE TO HAVING ISSUE WHICH CAUSES LORA COMMUNICATION TO BREAK. NEEDS INVESTIGATED.
+//    retrieveDS18Readings(); --this method call causes a program freeze issue due to a conflict with LoRa, so is commented out until a fix can be applied.
     retrieveSEN0114Readings();
     retrieveSHT21Readings();    
     retrieveTSL2591Readings();
-    delay(500); //will be a two minute delay - or preferably T-Beam will be put to sleep for 2 minutes as this will preserve battery life.
+    esp_sleep_enable_timer_wakeup(millisecondsToSecondsFactor * secondsToSleep); //will be a two minute delay
+    esp_light_sleep_start();
   }
 
   //Calculate and store average readings for each sensor
@@ -129,7 +131,6 @@ void loop()
   sendAverageResultsViaLoRa();
 
   //(loop method now restarts from first line)
-
 }
 
 
@@ -184,7 +185,7 @@ void retrieveBMEReadings()
   humidityArray[i] = bme.readHumidity();
 }
 
-void retrieveDS18Readings()
+void retrieveDS18Readings() //(method not currently being called)
 {
   dallasTemp.requestTemperatures();
   soilTempArray[i] = dallasTemp.getTempCByIndex(0);
@@ -260,26 +261,36 @@ void sendAverageResultsViaLoRa()
 {
   //send packets
   LoRa.beginPacket();
-  LoRa.print("avgAirTemp: ");
+  LoRa.print("\nAir temperature: ");
   LoRa.print(avgAirTemp);
-  LoRa.endPacket();
-  delay(1500);
+  LoRa.print("\n");
   
-  LoRa.beginPacket();
-  LoRa.print("avgHumidity: ");
+  LoRa.print("Pressure: ");
+  LoRa.print(avgPressure);
+  LoRa.print("\n");
+  
+  LoRa.print("Altitude: ");
+  LoRa.print(avgAltitude);
+  LoRa.print("\n");
+  
+  LoRa.print("Humidity: ");
   LoRa.print(avgHumidity);
-  LoRa.endPacket();
-  delay(1500);
-  
-  LoRa.beginPacket();
-  LoRa.print("avgSoilMoisture: ");
-  LoRa.print(avgSoilMoisture);
-  LoRa.endPacket();
-  delay(1500);
+  LoRa.print("\n");
 
-  LoRa.beginPacket();
-  LoRa.print("avgLuminosity: ");
+  LoRa.print("Soil moisture: ");
+  LoRa.print(avgSoilMoisture);
+  LoRa.print("\n");
+
+  LoRa.print("Air temperature (SHT): ");
+  LoRa.print(avgAirTempSHT);
+  LoRa.print("\n");
+
+  LoRa.print("Humidity (SHT): ");
+  LoRa.print(avgHumiditySHT);
+  LoRa.print("\n");
+  
+  LoRa.print("Luminosity: ");
   LoRa.print(avgLuminosity);
+  LoRa.print("\n\n");
   LoRa.endPacket();
-  delay(1500);
 }
