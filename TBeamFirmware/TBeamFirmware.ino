@@ -41,7 +41,7 @@ float avgAltitude;
 float avgHumidity;
 
 //DS18B20 variables
-const int pinUsedByDS18 = 23; //number assigned to this variable = pin on board that the sensor is connected to.
+const int pinUsedByDS18 = 23; //number assigned to this variable == pin on board that the sensor is connected to.
 OneWire oneWire(pinUsedByDS18);
 DallasTemperature dallasTemp(&oneWire);
 float soilTempArray[5];
@@ -112,7 +112,7 @@ void loop()
     retrieveSEN0114Readings();
     retrieveSHT21Readings();    
     retrieveTSL2591Readings();
-    esp_sleep_enable_timer_wakeup(millisecondsToSecondsFactor * secondsToSleep); //will be a two minute delay
+    esp_sleep_enable_timer_wakeup(millisecondsToSecondsFactor * secondsToSleep); //T-beam sleeps for two minutes
     esp_light_sleep_start();
   }
 
@@ -253,9 +253,7 @@ float calculateAverageReadings(float tempArr[])
 
 
 
-/*Method for the sending of average readings via LoRa.
- * There are currently 4 readings being sent. Code for sending the rest of the readings
- * will be written in the next sprint.
+/*Method for sending average readings via LoRa
  */
 void sendAverageResultsViaLoRa()
 {
