@@ -177,9 +177,6 @@ def AddProject():
 def AddSesnor():
     return render_template('add-sensor.html')
 
-@app.route('/sensors.html')
-def Sesnor():
-    return render_template('Sensors.html')
 
 
 if __name__ == '__main__':
