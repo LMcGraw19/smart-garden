@@ -5,77 +5,61 @@ import mysql.connector #Module that connects us to the database
 import requests
 import sys
 import json
+#import paho.mqtt.client as mqtt
+import time
 
 app = Flask(__name__)
 api = Api(app)
 
-#Currently unused code
-#class Hello(Resource):
-#    def get(self, name):
-#        return names[name]
-#    
-#    def post(self):
-#        return{"data": "Hello World"}
-#
-#api.add_resource(Hello, "/<string:name>")
-
-#class database(Resource):
-#    def post(self):
- #       data = request.get_json()
-  #      print(type(data))
-
-#api.add_resource(database, "/database")
-
-@app.route('/database', methods=['POST'])
-def database():
-    print('running', file=sys.stdout)
-    data = request.get_json()
-    result = json.dumps(data)
+#@app.route('/database', methods=['POST'])
+#def database():
+#    print('running', file=sys.stdout)
+#    data = request.get_json()
+#    result = json.dumps(data)
     
-    sql = str(data.keys())
-    sql = sql[12:-3:]
-    values = str(data.values())
-    values = values[14:-3:]
-    values = values.split(',')
-    values[0] = values[0][1:-1:]
+#    sql = str(data.keys())
+#    sql = sql[12:-3:]
+#    values = str(data.values())
+#    values = values[14:-3:]
+#    values = values.split(',')
+#    values[0] = values[0][1:-1:]
     
-    for val in range(len(values)):
-        if val != 0:
-            values[val] = float(values[val])
+#    for val in range(len(values)):
+#        if val != 0:
+#            values[val] = float(values[val])        
+    
+#    sqlupdate(sql, values)
+    
+    
+#    print(sql, file=sys.stdout)
+#    print(values, file=sys.stdout)
         
     
-    sqlupdate(sql, values)
-    
-    
-    print(sql, file=sys.stdout)
-    print(values, file=sys.stdout)
-        
-    
-    returnvalue = {'Update':'Complete'}
-    return(returnvalue)
+#    returnvalue = {'Update':'Complete'}
+#    return(returnvalue)
 
-def sqlupdate(sql, values):
-    mydb = mysql.connector.connect(
-      host="localhost",
-      user="root",
-      password="Smartgarden",
-      database="SmartGarden"
-    )
-    mycursor = mydb.cursor()
+#def sqlupdate(sql, values):
+#    mydb = mysql.connector.connect(
+#      host="localhost",
+#      user="root",
+#      password="Smartgarden",
+#      database="SmartGarden"
+#    )
+#    mycursor = mydb.cursor()
     
-    values = tuple(values)
+#    values = tuple(values)
     
-    if sql == 'BME280':
-        column = 'INSERT INTO BME280 (time, Temperature, Pressure, Altitude, Humidity) VALUES (%s, %s, %s, %s, %s)'
-    print(values, file=sys.stdout)
+#    if sql == 'BME280':
+#        column = 'INSERT INTO BME280 (time, Temperature, Pressure, Altitude, Humidity) VALUES (%s, %s, %s, %s, %s)'
+#    print(values, file=sys.stdout)
     
-    gather = 'SELECT * FROM ' + sql
-    mycursor.execute(gather)
-    mycursor.fetchall()
+#    gather = 'SELECT * FROM ' + sql
+#    mycursor.execute(gather)
+#    mycursor.fetchall()
     
-    mycursor.execute(column, values)
+#    mycursor.execute(column, values)
     
-    mydb.commit()
+#    mydb.commit()
     
 
 
@@ -180,7 +164,20 @@ def TSL2591():
     timelist, formatlist, columnlist = sql(table)      
         
     return render_template('TSL2591.html', time=timelist, temp=formatlist, column=columnlist);#For now the html page is given a list with tuples in it.
-    
+
+@app.route('/welcome.html')
+def Welcome():
+    return render_template('welcome.html')
+
+@app.route('/add-project.html')
+def AddProject():
+    return render_template('add-project.html')
+
+@app.route('/add-sensor.html')
+def AddSesnor():
+    return render_template('add-sensor.html')
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run
     #app.run(debug=True, host='127.0.0.1', port=5020)

@@ -20,8 +20,8 @@
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="welcome.html">Return to Projects <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>
@@ -30,33 +30,30 @@
     </section>
 
     <!--MAIN CONTENT-->
-    <div class="container">
-        <div class="content-section">
+<div class="container">         
+    <div class="content-section">
+        <div class="inner">
+        <div class="center">
+          <h1>Add Project</h1>
+          <br/>
 
-            <h1 style="text-align:center;">Welcome</h1>
-            <p style="text-align:center;">
-                Please select one of the following projects or submit a project to the Smart Garden Website.
-            </p>
+  <form action="" method="post"
+    class="form" role="form">
+    <input id="csrf_token" name="csrf_token" type="hidden" value="IjFkNWEwNmUyZmIwOWJjNzkwZGRiOTYwODNjNDkzZGM4ZDQ3NjQzYjMi.YGRJmQ.uGNsmQNc-QQT_I86k77ewres8XY">
 
-            <div class="inner">
-              <br/>
-              <h2 style="text-align:center;">Project</h2>
-
-                <div style="text-align: center">
-                    <a href="/" class="btn btn-default btn-lg">
-                        <i class="fa fa-plus"></i>
-                        The Lion's Gate Gardens
-                      </a>
-                  <hr class="intro-divider">
-
-                <a href="add-project.html" class="btn btn-default btn-lg">
-                  <i class="fa fa-plus"></i>
-                  Add Project
-                </a>
-              </div>
-            </div>
-          </div>
+  <div class="form-group  required"><label class="control-label" for="code">Code</label>
+    <input class="form-control" id="code" name="code" required type="text" value="">
     </div>
+  <div class="form-group  required"><label class="control-label" for="name">Name</label>
+    <input class="form-control" id="name" name="name" required type="text" value="">
+    </div>
+    <input class="btn btn-default" id="submit" name="submit" type="submit" value="Submit">
+  </form>
+      </div>
+    </div>
+  </div>
+    </div>
+
     <!-- Footer -->
     <footer class="py-5 bg-dark">
         <div class="container">
@@ -70,7 +67,7 @@
                 <li>EH10 5DT</li>
                 <li>Scotland</li>
             </ul>
-            <div id="copyright">&copy; 2021 Lions Gate Gardens. All rights reserved.</div>
+            <div id="copyright">&copy; Edinburgh Napier University. All rights reserved.</div>
         </div>
         <!-- /.container -->
     </footer>
