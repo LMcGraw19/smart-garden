@@ -6,7 +6,7 @@ import requests
 import sys
 import json
 #import paho.mqtt.client as mqtt
-import time
+#import time
 
 app = Flask(__name__)
 api = Api(app)
@@ -66,9 +66,9 @@ api = Api(app)
 def sql(table):
     mydb = mysql.connector.connect(
       host="localhost",
-      user="root",
-      password="Smartgarden",
-      database="SmartGarden"
+      user="lionsgate",
+      password="Li0nsgate1",
+      database="lionsgate"
     )
     mycursor = mydb.cursor()
     
