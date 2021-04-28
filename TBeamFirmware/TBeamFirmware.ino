@@ -274,6 +274,10 @@ void sendAverageResultsViaLoRa()
   LoRa.print("Humidity: ");
   LoRa.print(avgHumidity);
   LoRa.print("\n");
+  
+//LoRa.print("Soil temperature: ");
+//LoRa.print(avgSoilTemp);
+//LoRa.print("\n");
 
   LoRa.print("Soil moisture: ");
   LoRa.print(avgSoilMoisture);
