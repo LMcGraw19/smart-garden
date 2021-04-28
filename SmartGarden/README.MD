@@ -28,18 +28,17 @@ Go into folders to make
 
 `Make`
 
-  
-
 Depending on permissions, sudo might have to be used to execute step 9.    
 
 To run the sender   
 
 `sudo ./dragino_lora_app sender`  
-
+![Picture1](https://user-images.githubusercontent.com/78489501/116412506-aa0ef100-a82e-11eb-8d4d-0c87c388ba4d.png)
 
 To run the receiver  
 
-`sudo ./dragino_lora_app rec`  
+`sudo ./dragino_lora_app rec` 
+![Picture2](https://user-images.githubusercontent.com/78489501/116412988-1a1d7700-a82f-11eb-9941-56a0f6c4dd07.png)
 
 This is between two Raspberry Pis.
 
@@ -67,10 +66,12 @@ Adafruit SSD1306 by Adafruit
 
 ESP8266 and ESP32 OLED driver for SSD1306 displays by ThingPulse, Fabrice Weinberg  
 
-Upload sketch to the T-Beam, it will start sending packets once uploaded. To view, use the Serial Monitor found in Tools.   
+Upload sketch to the T-Beam, it will start sending packets once uploaded. To view, use the Serial Monitor found in Tools.  
+![Picture3](https://user-images.githubusercontent.com/78489501/116412995-1b4ea400-a82f-11eb-9266-7bd82dfd1816.png)
+
 
 Once the T-Beam is running, run the receiver code on the Raspberry Pi.  
-
+![Picture4](https://user-images.githubusercontent.com/78489501/116412998-1be73a80-a82f-11eb-9f10-723ee3a6b4cc.png)
 
 
 # Edit main file to convert lora packet to .json 
