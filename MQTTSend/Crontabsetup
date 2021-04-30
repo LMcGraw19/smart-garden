@@ -1,0 +1,15 @@
+Setup for the raspberry Pi
+
+Crontab is as follows:
+
+Create Crontab with:
+	"Crontab -e"
+
+Insert into config file:
+* * * * * /path/to/script.sh
+
+This will launch the script every minute. Configurable.
+
+Ensure script is executable:
+
+sudo chmod 755 /path/to/script.sh
